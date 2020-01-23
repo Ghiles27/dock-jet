@@ -1,9 +1,15 @@
 FROM python:3.7-slim-buster
-RUN apt update && apt install -y python3-pip
+
+MAINTANER Insim "insim@insim.to"
 
 WORKDIR /app
-COPY .
-RUN ls
-ENTRYPOINT ["ls", "."]
+COPY app.py requirements.txt
 
-ENTRYPOINT ["
+RUN apt update && apt install -y python3-pip
+COPY . ./
+RUN pwd && ls && pip3 install -r requirements.txt --no-cache-dir
+
+EXPOSE 8080
+
+ENTRYPOINT [ "python3.7", "./app.py" ]
+
